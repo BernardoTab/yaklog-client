@@ -1,0 +1,29 @@
+<h1>Register</h1>
+
+<form [formGroup]="registerForm">
+    <div>
+        <label for="email">Email:</label>
+        <input id="email" type="email" formControlName="email">
+    </div>
+    @if(submitted && registerForm.get("email")?.touched && !registerForm.get("email")?.valid){
+        <p style="color:red">Email in valid format is required</p>
+    }
+    <div>
+        <label for="password">Password:</label>
+        <input id="password" type="password" formControlName="password">
+    </div>
+    @if(submitted && registerForm.get("password")?.touched && !registerForm.get("password")?.valid){
+        <p style="color:red">Password is not valid (min. 6 chars)</p>
+    }
+    <div>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword">
+    </div>
+    @if(submitted && registerForm.errors?.["passwordMismatch"]){
+        <p style="color:red">Passwords do not match!</p>
+    }
+    <button type="submit" (click)="onSubmit()">Login</button>
+</form>
+<button (click)="onBack()">
+    Back
+</button>
