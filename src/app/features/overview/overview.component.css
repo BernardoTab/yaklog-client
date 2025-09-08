@@ -1,0 +1,6 @@
+.container{
+    background-color: #E6EEEF;
+    height:100vh;
+    display: flex;
+    padding: 5vh 5vw;
+}

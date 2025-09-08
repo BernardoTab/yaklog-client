@@ -1,6 +1,8 @@
-<h1>Home</h1>
-
-<div>
-    <button (click)="onLoginClick()">Login</button>
-    <button (click)="onRegisterClick()">Register</button>
+<div [ngClass]="'container'">
+    <img [ngClass]="'yak'" src="assets/yak.png" alt="yak">
+    <div [ngClass]="'authBox'">
+        <button mat-raised-button (click)="onLoginClick()">Login</button>
+        <button  mat-raised-button (click)="onRegisterClick()">Register</button>
+    </div>
 </div>
+
