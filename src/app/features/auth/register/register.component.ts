@@ -17,6 +17,7 @@ import { NgClass } from '@angular/common';
 export class RegisterComponent {
   registerForm : FormGroup;
   submitted = false;
+  successUrl = "to-do";
 
   constructor(
     private fb: FormBuilder, 
@@ -40,7 +41,7 @@ export class RegisterComponent {
       }).subscribe({
         next : (response) => {
           console.log(response);
-          this.router.navigate(["overview"])
+          this.router.navigate([this.successUrl])
         },
         error : (err) => {
           this.snackBar.open(err.error?.message || 'An error occurred', 'Close', {

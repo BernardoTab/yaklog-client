@@ -4,7 +4,6 @@ import { environment } from '../../../../environments/environment';
 import { UserInput } from '../models/user-input';
 import { Observable, tap } from 'rxjs';
 import { LoginResponse } from '../models/login-response';
-import { response } from 'express';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -26,7 +25,8 @@ export class AuthService {
           .pipe(
             tap(
               response => {
-                localStorage.setItem("token",response.token)
+                localStorage.setItem("token",response.token);
+                localStorage.setItem("email",response.user?.email);
               }
             )
           )

@@ -8,6 +8,8 @@ import { AuthService } from "../../features/auth/services/auth.service";
 })
 export class LoginRedirectGuard implements CanActivate {
 
+  successUrl = "to-do"
+
   constructor(
     private router: Router,
     private authService: AuthService) {}
@@ -15,7 +17,7 @@ export class LoginRedirectGuard implements CanActivate {
   canActivate(): boolean {
     if (this.authService.isLoggedIn()) {
       // User already logged in, redirect to /overview
-      this.router.navigate(['/overview']);
+      this.router.navigate([this.successUrl]);
       return false; // block access to login
     }
     return true; // allow access to login

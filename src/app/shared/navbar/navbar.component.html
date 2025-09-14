@@ -1,0 +1,14 @@
+<div [ngClass]="'container'">
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+        @for (tab of tabs; track tab) {
+            <a mat-tab-link [routerLink]="tab.route" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive" >
+                {{tab.name}}
+            </a>
+        }
+    </nav>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+    <div>
+        <label>{{email}}</label>
+        <button mat-button (click)="logout()">Logout</button>
+    </div>
+</div>

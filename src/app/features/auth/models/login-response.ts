@@ -2,5 +2,5 @@ import { UserScopeInfo } from "./user-scope-info";
 
 export interface LoginResponse{
     token: string;
-    userInfo: UserScopeInfo;
+    user: UserScopeInfo;
 }

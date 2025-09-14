@@ -16,6 +16,7 @@ import {MatButtonModule} from '@angular/material/button';
 export class LoginComponent {
   loginForm : FormGroup;
   submitted = false;
+  successUrl = "to-do";
 
   constructor(
     private fb : FormBuilder, 
@@ -36,7 +37,7 @@ export class LoginComponent {
       }).subscribe({
         next : (response) => {
           console.log(response);
-          this.router.navigate(["overview"]);
+          this.router.navigate([this.successUrl]);
         },
         error : (err) => {
           this.snackBar.open(err.error?.message || 'An error occurred', 'Close', {
