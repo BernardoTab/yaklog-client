@@ -27,6 +27,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 export class AddNewDialogComponent {
 
   itemForm: FormGroup;
+  consoles = ["Gamecube","N64","PS1","PS2","PS3","PS4","PS5"];
 
   constructor(
     private fb: FormBuilder,
@@ -34,10 +35,15 @@ export class AddNewDialogComponent {
   ) {
     this.itemForm = this.fb.group(
       {
-        name: ['', Validators.required],
-        genre: ['Movie', Validators.required],
+        name: [null, Validators.required],
+        genre: [null, Validators.required],
         destinationTab: ['backlog', Validators.required],
-        finishedDate: ['']
+        finishedDate: [null],
+        director: [null],
+        releaseDate: [null],
+        console: [null],
+        numberOfSeasons: [null],
+        author: [null]
       }
     )
 
@@ -50,10 +56,32 @@ export class AddNewDialogComponent {
       }
       finishedDate?.updateValueAndValidity();
     });
+
+    this.itemForm.get('genre')?.valueChanges.subscribe(value => {
+      const console = this.itemForm.get('console');
+      const numberOfSeasons = this.itemForm.get('numberOfSeasons');
+      const author = this.itemForm.get('author');
+      if (value === 'Game') {
+        console?.setValidators([Validators.required]);
+      } else if(value === 'Series'){
+        numberOfSeasons?.setValidators([Validators.required]);
+      } else if(value === 'Book'){
+        author?.setValidators([Validators.required]);
+      }
+      else {
+        console?.clearValidators();
+        numberOfSeasons?.clearValidators();
+        author?.clearValidators();
+      }
+      console?.updateValueAndValidity();
+      numberOfSeasons?.updateValueAndValidity();
+      author?.updateValueAndValidity();
+    });
   }
 
   saveItem() {
     if (this.itemForm.valid) {
+      console.log(this.itemForm.value);
       this.dialogRef.close(this.itemForm.value); // pass data back
     }
   }

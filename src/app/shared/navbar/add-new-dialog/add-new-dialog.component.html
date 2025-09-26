@@ -22,27 +22,76 @@
             </mat-select>
         </mat-form-field>
 
+        @switch (itemForm.get('genre')?.value) {
+            @case('Movie'){
+                <mat-form-field appearance="fill">
+                    <mat-label>Director</mat-label>
+                    <input matInput formControlName="director" />
+                    <mat-hint align="end">(optional)</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Release Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="releaseDate" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-hint align="end">(optional)</mat-hint>
+                </mat-form-field>
+            }
+            @case ('Game') {
+                <mat-form-field appearance="fill">
+                    <mat-label>Console</mat-label>
+                    <mat-select formControlName="console">
+                        @for(console of consoles; track $index){
+                        <mat-option value={{console}}>{{console}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            }
+            @case ('Series'){
+                <mat-form-field appearance="fill">
+                    <mat-label>Number of Seasons</mat-label>
+                    <input matInput type="number" min="1" max="100"  formControlName="numberOfSeasons" />
+                    @if (itemForm.get('numberOfSeasons')?.hasError('required')) {
+                    <mat-error>
+                        Number is required
+                    </mat-error>
+                    }
+                </mat-form-field>
+            }
+            @case ('Book'){
+                <mat-form-field appearance="fill">
+                    <mat-label>Author</mat-label>
+                    <input matInput formControlName="author" />
+                    @if (itemForm.get('author')?.hasError('required')) {
+                    <mat-error>
+                        Author is required
+                    </mat-error>
+                    }
+                </mat-form-field>
+            }
+        }
+
         <mat-radio-group formControlName="destinationTab">
             <mat-radio-button value="backlog">Backlog</mat-radio-button>
             <mat-radio-button value="finished">Finished</mat-radio-button>
         </mat-radio-group>
 
         @if(itemForm.get('destinationTab')?.value === 'finished'){
-            <mat-form-field appearance="fill">
-                <mat-label>Finished Date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="finishedDate" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                @if (itemForm.get('finishedDate')?.hasError('required')) {
-                <mat-error>
-                    Finished date is required
-                </mat-error>
-                }
-            </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Finished Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="finishedDate" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            @if (itemForm.get('finishedDate')?.hasError('required')) {
+            <mat-error>
+                Finished date is required
+            </mat-error>
+            }
+        </mat-form-field>
         }
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-flat-button [mat-dialog-close]="true" cdkFocusInitial type="submit">Add</button>
+        <button mat-flat-button cdkFocusInitial type="submit">Add</button>
     </mat-dialog-actions>
 </form>

@@ -33,7 +33,6 @@ export class NavbarComponent {
   }
 
   get email() {
-    console.log(localStorage.getItem("email"))
     return localStorage.getItem("email");
   }
 
@@ -41,7 +40,6 @@ export class NavbarComponent {
     const dialogRef = this.dialog.open(AddNewDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
 }
