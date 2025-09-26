@@ -1,27 +1,40 @@
 
-<div [ngClass]="'container'">
+<div class="container">
     <h1>Login</h1>
-    <div [ngClass]="'loginBox'">
-        <form [formGroup]="loginForm" >
+    <div class="loginBox">
+        <form [formGroup]="loginForm" class="loginForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" />
+                @if (loginForm.get('email')?.hasError('required')) {
+                <mat-error>
+                    Email is required
+                </mat-error>
+                } @else if(loginForm.get('email')?.hasError('email')){
+                <mat-error>
+                    Not a valid email
+                </mat-error>
+                }
+            </mat-form-field>
+            
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" />
+                @if (loginForm.get('password')?.hasError('required')) {
+                <mat-error>
+                    Password is required
+                </mat-error>
+                } @else if(loginForm.get('password')?.hasError('minlength')){
+                <mat-error>
+                    Minimum length - 6 chars
+                </mat-error>
+                }
+            </mat-form-field>
             <div>
-                <label for="email">Email:</label>
-                <input id="email" type="email" formControlName="email">
+                <button mat-button (click)="onBack()">Back</button>
+                <button mat-raised-button type="submit" (click)="onSubmit()">Login</button>
             </div>
-            @if(submitted && email?.touched && !email?.valid){
-                <p style="color:red">Email in valid format is required</p>
-            }
-            <div>
-                <label for="password">Password:</label>
-                <input id="password" type="password" formControlName="password">
-            </div>
-            @if(submitted && password?.touched && !password?.valid){
-                <p style="color:red">Password is not valid (min. 6 chars)</p>
-            }
-            <button mat-raised-button type="submit" (click)="onSubmit()">Login</button>
         </form>
-        <button mat-raised-button (click)="onBack()">
-            Back
-        </button>
     </div>
     
 </div>

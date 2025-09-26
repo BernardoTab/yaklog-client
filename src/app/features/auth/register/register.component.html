@@ -1,32 +1,54 @@
-<div [ngClass]="'container'">
+<div class="container">
     <h1>Register</h1>
-    <div [ngClass]="'registerBox'">
-        <form [formGroup]="registerForm">
+    <div class="registerBox">
+        <form [formGroup]="registerForm" class="registerForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" />
+                @if (registerForm.get('email')?.hasError('required')) {
+                <mat-error>
+                    Email is required
+                </mat-error>
+                } @else if(registerForm.get('email')?.hasError('email')){
+                <mat-error>
+                    Not a valid email
+                </mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" />
+                @if (registerForm.get('password')?.hasError('required')) {
+                <mat-error>
+                    Password is required
+                </mat-error>
+                } @else if(registerForm.get('password')?.hasError('minlength')){
+                <mat-error>
+                    Minimum length - 6 chars
+                </mat-error>
+                }
+            </mat-form-field>
+
+            
+            <mat-form-field appearance="fill">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" formControlName="confirmPassword" />
+                @if (registerForm.get('confirmPassword')?.hasError('required')) {
+                <mat-error>
+                    Confirm password is required
+                </mat-error>
+                } @else if (registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.hasError('passwordMismatch')) {
+                <mat-error>
+                    Passwords do not match!
+                </mat-error>
+                }
+            </mat-form-field>
+
             <div>
-                <label for="email">Email:</label>
-                <input id="email" type="email" formControlName="email">
+                <button mat-button (click)="onBack()">Back</button>
+                <button mat-raised-button type="submit" (click)="onSubmit()">Register</button>
             </div>
-            @if(submitted && email?.touched && !email?.valid){
-            <p style="color:red">Email in valid format is required</p>
-            }
-            <div>
-                <label for="password">Password:</label>
-                <input id="password" type="password" formControlName="password">
-            </div>
-            @if(submitted && password?.touched && !password?.valid){
-            <p style="color:red">Password is not valid (min. 6 chars)</p>
-            }
-            <div>
-                <label for="confirmPassword">Confirm Password:</label>
-                <input id="confirmPassword" type="password" formControlName="confirmPassword">
-            </div>
-            @if(submitted && registerForm.errors?.["passwordMismatch"]){
-            <p style="color:red">Passwords do not match!</p>
-            }
-            <button mat-raised-button type="submit" (click)="onSubmit()">Register</button>
         </form>
-        <button mat-raised-button (click)="onBack()">
-            Back
-        </button>
     </div>
 </div>

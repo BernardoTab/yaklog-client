@@ -6,11 +6,12 @@ import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import { NgClass } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, MatButtonModule, NgClass],
+  imports: [ReactiveFormsModule, MatButtonModule, NgClass,MatInputModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

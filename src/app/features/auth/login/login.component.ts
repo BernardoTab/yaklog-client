@@ -5,11 +5,12 @@ import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgClass } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, MatButtonModule],
+  imports: [ReactiveFormsModule, MatButtonModule,MatInputModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

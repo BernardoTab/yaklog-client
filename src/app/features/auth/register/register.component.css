@@ -10,13 +10,18 @@
 
 .registerBox{
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
     background-color: #D3E8F9;
     width: 20vw;
-    height:30vh;
+    height:40vh;
     gap: 20px;
     border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.registerForm{
+    display: flex;
+    width:100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
