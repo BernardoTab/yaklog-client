@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../features/auth/services/auth.service';
 import { MatTabsModule } from '@angular/material/tabs';
-import { NgClass } from '@angular/common';
 import { MatButton } from '@angular/material/button';
+import { AddNewDialogComponent } from './add-new-dialog/add-new-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [NgClass,MatTabsModule, MatButton, RouterModule],
+  imports: [MatTabsModule, MatButton, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -19,6 +20,7 @@ export class NavbarComponent {
     {name: 'Finished', route: "/finished"},
     {name: 'Stats', route: "/stats"}];
   activeTab = this.tabs[0].name;
+  readonly dialog = inject(MatDialog);
 
   constructor(
     private readonly router: Router,
@@ -33,5 +35,13 @@ export class NavbarComponent {
   get email() {
     console.log(localStorage.getItem("email"))
     return localStorage.getItem("email");
+  }
+
+  openAddNewDialog(): void {
+    const dialogRef = this.dialog.open(AddNewDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

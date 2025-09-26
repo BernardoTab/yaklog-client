@@ -1,1 +1,22 @@
-<app-navbar></app-navbar>
+<div class="backlogContainer">
+    @for(genre of genres; track $index){
+    <mat-expansion-panel class="genreContainer" (opened)="panelOpenState.set(true)"
+        (closed)="panelOpenState.set(false)">
+        <mat-expansion-panel-header>
+            <mat-panel-title> {{genre}} </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="expansionView">
+            @for(item of getItemsByGenre(genre.slice(0,-1)); track $index){
+                <div class='mediaBlock'>
+                    <div class='mediaView'>
+                    </div>
+                    <label>{{item.title}}</label>
+                </div>
+            }
+        </div>
+
+
+    </mat-expansion-panel>
+    }
+</div>

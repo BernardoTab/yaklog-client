@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Add New Item</h2>
+<form [formGroup]="itemForm" (ngSubmit)="saveItem()">
+    <mat-dialog-content class="formContainer">
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+            @if (itemForm.get('name')?.hasError('required')) {
+            <mat-error>
+                Name is required
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Genre</mat-label>
+            <mat-select formControlName="genre">
+                <mat-option value="Movie">Movie</mat-option>
+                <mat-option value="Game">Game</mat-option>
+                <mat-option value="Series">Series</mat-option>
+                <mat-option value="Book">Book</mat-option>
+                <mat-option value="Project">Project</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-radio-group formControlName="destinationTab">
+            <mat-radio-button value="backlog">Backlog</mat-radio-button>
+            <mat-radio-button value="finished">Finished</mat-radio-button>
+        </mat-radio-group>
+
+        @if(itemForm.get('destinationTab')?.value === 'finished'){
+            <mat-form-field appearance="fill">
+                <mat-label>Finished Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="finishedDate" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                @if (itemForm.get('finishedDate')?.hasError('required')) {
+                <mat-error>
+                    Finished date is required
+                </mat-error>
+                }
+            </mat-form-field>
+        }
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-flat-button [mat-dialog-close]="true" cdkFocusInitial type="submit">Add</button>
+    </mat-dialog-actions>
+</form>

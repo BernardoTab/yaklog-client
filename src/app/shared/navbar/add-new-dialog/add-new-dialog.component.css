@@ -1,0 +1,6 @@
+.formContainer{
+  display: flex;
+  flex-direction: column; /* stack items vertically */
+  gap: 16px;              /* spacing between fields */
+  overflow: hidden;       /* 🚫 prevent scrollbars */
+}

@@ -1,1 +1,24 @@
-<app-navbar></app-navbar>
+<div class="finishedContainer">
+    @for(year of sortedYears; track $index){
+    <mat-expansion-panel class="yearContainer" (opened)="panelOpenState.set(true)"
+        (closed)="panelOpenState.set(false)">
+        <mat-expansion-panel-header>
+            <mat-panel-title> {{year}} </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="expansionView">
+            @for(item of getitemsByYear(year); track $index){
+                <div class='mediaBlock'>
+                    <div class='mediaView'>
+                    </div>
+                    <label>{{item.title}}</label>
+                    <label style="font-weight: 500;">{{item.genre}}</label>
+                    <label style="font-weight: 200; font-size: small;">{{item.finishedDate | date}}</label>
+                </div>
+            }
+        </div>
+
+
+    </mat-expansion-panel>
+    }
+</div>
