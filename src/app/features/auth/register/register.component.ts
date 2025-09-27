@@ -48,7 +48,8 @@ export class RegisterComponent {
           this.snackBar.open(err.error?.message || 'An error occurred', 'Close', {
             duration: 5000,
             horizontalPosition: 'right',  // top-right
-            verticalPosition: 'top'
+            verticalPosition: 'top',
+            panelClass: ['snackbar-error']
           });
         }
       })

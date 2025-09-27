@@ -4,14 +4,3 @@
   gap: 16px;              /* spacing between fields */
   overflow: hidden;       /* 🚫 prevent scrollbars */
 }
-
-.snackbar-success {
-  background-color: #4caf50; /* Green */
-  color: #fff;
-}
-
-/* Error snackbar */
-.snackbar-error {
-  background-color: #f44336; /* Red */
-  color: #fff;
-}

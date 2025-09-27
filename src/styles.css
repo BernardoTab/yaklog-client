@@ -5,3 +5,14 @@ body {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+:root {
+    .snackbar-error {
+        --mdc-snackbar-container-color: red;        
+    }
+
+    .snackbar-success {
+        --mdc-snackbar-container-color: green;        
+    }
+}
