@@ -2,7 +2,7 @@
     <h1>Register</h1>
     <div class="registerBox">
         <form [formGroup]="registerForm" class="registerForm">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline" >
                 <mat-label>Email</mat-label>
                 <input matInput type="email" formControlName="email" />
                 @if (registerForm.get('email')?.hasError('required')) {
@@ -16,7 +16,7 @@
                 }
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
                 <input matInput type="password" formControlName="password" />
                 @if (registerForm.get('password')?.hasError('required')) {
@@ -31,7 +31,7 @@
             </mat-form-field>
 
             
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
                 <mat-label>Confirm Password</mat-label>
                 <input matInput type="password" formControlName="confirmPassword" />
                 @if (registerForm.get('confirmPassword')?.hasError('required')) {

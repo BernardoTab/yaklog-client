@@ -3,7 +3,7 @@
     <h1>Login</h1>
     <div class="loginBox">
         <form [formGroup]="loginForm" class="loginForm">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
                 <input matInput type="email" formControlName="email" />
                 @if (loginForm.get('email')?.hasError('required')) {
@@ -17,7 +17,7 @@
                 }
             </mat-form-field>
             
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
                 <input matInput type="password" formControlName="password" />
                 @if (loginForm.get('password')?.hasError('required')) {

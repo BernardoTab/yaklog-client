@@ -2,11 +2,11 @@
 <form [formGroup]="itemForm" (ngSubmit)="saveItem()">
     <mat-dialog-content class="formContainer">
         <mat-form-field appearance="fill">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" />
-            @if (itemForm.get('name')?.hasError('required')) {
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" />
+            @if (itemForm.get('title')?.hasError('required')) {
             <mat-error>
-                Name is required
+                Title is required
             </mat-error>
             }
         </mat-form-field>

@@ -8,6 +8,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { PortfolioService } from '../services/portfolio.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { finished } from 'stream';
+import { mediaType } from '../models/media-type';
+import { MediaItem } from '../models/media-item';
+import { MediaType } from 'express';
 
 @Component({
   selector: 'app-add-new-dialog',
@@ -32,21 +38,24 @@ export class AddNewDialogComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddNewDialogComponent>,
+    private portfolioService: PortfolioService,
+    private snackBar: MatSnackBar
   ) {
     this.itemForm = this.fb.group(
       {
-        name: [null, Validators.required],
-        genre: [null, Validators.required],
+        title: [undefined, Validators.required],
+        genre: [undefined, Validators.required],
         destinationTab: ['backlog', Validators.required],
-        finishedDate: [null],
-        director: [null],
-        releaseDate: [null],
-        console: [null],
-        numberOfSeasons: [null],
-        author: [null]
+        finishedDate: [undefined],
+        director: [undefined],
+        releaseDate: [undefined],
+        console: [undefined],
+        numberOfSeasons: [undefined],
+        author: [undefined]
       }
     )
 
+    //When you pick Finished, finishedDate field gets a validator and clears it when de-selected
     this.itemForm.get('destinationTab')?.valueChanges.subscribe(value => {
       const finishedDate = this.itemForm.get('finishedDate');
       if (value === 'finished') {
@@ -57,6 +66,7 @@ export class AddNewDialogComponent {
       finishedDate?.updateValueAndValidity();
     });
 
+    //validator adding/removing based on genre
     this.itemForm.get('genre')?.valueChanges.subscribe(value => {
       const console = this.itemForm.get('console');
       const numberOfSeasons = this.itemForm.get('numberOfSeasons');
@@ -81,6 +91,39 @@ export class AddNewDialogComponent {
 
   saveItem() {
     if (this.itemForm.valid) {
+      const formValue = this.itemForm.value;
+      const payload: MediaItem = {
+        Title: formValue.title,
+        MediaType: formValue.genre as mediaType,
+        Finished: formValue.destinationTab === 'finished',
+        FinishedDate: formValue.finishedDate ? new Date(formValue.finishedDate).toISOString() : undefined,
+        ImageFilePath: undefined,
+
+        Author: formValue.author !== null ? formValue.author : undefined ,
+        Console:  formValue.console !== null ? formValue.console : undefined ,
+        ReleaseDate: formValue.releaseDate ? new Date(formValue.releaseDate).toISOString() : undefined,
+        Director:  formValue.director !== null ? formValue.director : undefined ,
+        NumberOfSeasons:  formValue.numberOfSeasons !== null ? formValue.numberOfSeasons : undefined 
+      }
+      this.portfolioService.addItem(payload).subscribe({
+        next : () => {
+          this.snackBar.open('Media item added successfully!', 'Close', {
+            duration: 5000,
+            horizontalPosition: 'right',  // top-right
+            verticalPosition: 'top',
+            panelClass: ['snackbar-success']
+          });
+          this.dialogRef.close(this.itemForm.value);
+        },
+        error : (err) => {
+          this.snackBar.open(err.error?.message || 'An error occurred', 'Close', {
+            duration: 5000,
+            horizontalPosition: 'right',  // top-right
+            verticalPosition: 'top',
+            panelClass: ['snackbar-error']
+          });
+        }
+      })
       console.log(this.itemForm.value);
       this.dialogRef.close(this.itemForm.value); // pass data back
     }
