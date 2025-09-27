@@ -14,6 +14,6 @@ export class PortfolioService {
       private readonly http:HttpClient) { }
 
   addItem(mediaItem: MediaItem) : Observable<any>{
-     return this.http.post(this.apiUrl+"/api/portfolio/add-item",mediaItem);
+     return this.http.post(this.apiUrl+"/api/portfolio/add-item",mediaItem, {withCredentials:true});
   }
 }

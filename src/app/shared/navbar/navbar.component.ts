@@ -28,12 +28,15 @@ export class NavbarComponent {
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate([""]);
+    this.authService.logout().subscribe(() => {
+      
+      this.router.navigate([""]);
+      console.log('Logged out');
+    });
   }
 
   get email() {
-    return localStorage.getItem("email");
+    return this.authService.email;
   }
 
   openAddNewDialog(): void {

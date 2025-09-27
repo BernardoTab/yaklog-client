@@ -13,8 +13,7 @@ import { LayoutComponent } from './shared/layout/layout.component';
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [LoginRedirectGuard]
+    component: HomeComponent
   },
   {
     path: 'login',
@@ -27,12 +26,12 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard],   // <-- automatic redirect if guard fails
     children: [
-      { path: 'to-do', component: ToDoComponent, canActivate: [AuthGuard] },
-      { path: 'backlog', component: BacklogComponent, canActivate: [AuthGuard] },
-      { path: 'finished', component: FinishedComponent, canActivate: [AuthGuard] },
-      { path: 'stats', component: StatsComponent, canActivate: [AuthGuard] },
+      { path: 'to-do', component: ToDoComponent },
+      { path: 'backlog', component: BacklogComponent},
+      { path: 'finished', component: FinishedComponent },
+      { path: 'stats', component: StatsComponent },
       { path: '', redirectTo: 'to-do', pathMatch: 'full' }
     ]
   }
