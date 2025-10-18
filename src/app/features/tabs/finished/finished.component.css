@@ -5,31 +5,22 @@
     gap: 1rem;
 }
 
-.yearContainer{
-    width: 80vw;
+.finished-content-container{
+  width:80vw;
 }
 
-.expansionView{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    flex-wrap: wrap;
-    padding: 0 3rem;
-    width: 100%;
-    gap: 2rem;
+
+.example-container {
+  position: relative;
 }
 
-.mediaBlock{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
 }
 
-.mediaView{
-    width: 120px;
-    height: 120px;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-bottom: 1rem;
-    background-color: #D3E8F9;
+.example-table {
+  width: 100%;
 }
